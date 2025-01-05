@@ -1,0 +1,52 @@
+'''Create a program that can encrypt and decrypt text using caesar cypher algorithm. 
+Allows users to input a message and shift a value to perform encryption and decryption.'''
+
+def encrypt(string,shift):
+    res = ""
+    for i in string:
+        if i.islower():
+            res += chr((ord(i)- ord("a")+ shift)%26 + ord("a"))
+        elif i.isupper():
+            res += chr((ord(i)- ord("A")+ shift)%26 + ord("A"))
+        else:
+            res += str(i)
+    return res
+
+def decrypt(string,shift):
+    res = ""
+    for i in string:
+        if i.islower():
+            res += chr((ord(i)- ord("a") - shift)%26 + ord("a"))
+        elif i.isupper():
+            res += chr((ord(i)- ord("A") - shift)%26 + ord("A"))
+        else:
+            res += str(i)
+    return res
+
+'''if input is lower case, then to encrypt it, we have to follow the following steps:
+   1. Convert the alphabet to number ----> ord("lowercase alphabet") - ord("a")
+   2. Now we've to shift the alphabet by "shift" amount: ord("lowercase alphabet") - ord("a")+shift 
+   3. Using modulo operator, we can get the number of the shifted alphabet (ord("lowercase alphabet") - ord("a")+ shift) % 26 (We've to do this step in order to catch the edge cases)
+   4. Now that we have the numerical value of the shifted alphabet, we can add the ascii value of "a" to get the ascii value of shifted alphabet
+      ((ord("lowercase alphabet") - ord("a")+ shift) % 26 + ord("a"))
+   5. And finally to convert the ascii value into alphabet we can use chr() ---> chr(((ord("lowercase alphabet") - ord("a")+ shift) % 26 + ord("a")))
+''' 
+
+while(1):
+        print("\t\tCAESAR CIPHER TEXT GENERATOR\t\t")
+        inp_str = input("Enter the string that you would like to encrypt or decrypt:")
+        choice = int(input("What would you like to do with your text? (Enter the corresponding number)\n1. Encrypt\n2. Decrypt\n"))
+        
+        if choice == 1:
+            shift = int(input("Enter a value between 1 and 25 for shifting: "))
+            print("Result of encryption is: ",encrypt(inp_str,shift))
+            break
+        
+        elif choice == 2:
+            shift = int(input("Enter a value between 1 and 25 for shifting backwards: "))
+            print("Result of decryption is: ",decrypt(inp_str,shift))
+            break
+        
+        else:
+            print("Enter a valid choice!")
+
