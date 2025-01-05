@@ -1,0 +1,18 @@
+from PIL import Image
+import numpy as np
+
+def encrypt_image(image_path, key):
+    """Encrypt an image by manipulating pixel values and display it."""
+
+    img = Image.open(image_path)
+    img_array = np.array(img, dtype=np.uint8)  # Converting the image to an array consisting of elements with the data type "uint8"
+    encrypted_array = (img_array.astype(np.uint16) + key) % 256  # Adding the custom encryption key to each pixel (after converting the array to uint16 form).
+    encrypted_array = encrypted_array.astype(np.uint8)  # Converting the array back to uint8 form.
+    encrypted_img = Image.fromarray(encrypted_array)  # Converting the array back to image format to show!
+    encrypted_img.show()
+
+if __name__ == "__main__":
+    input_image = r"C:\Users\dinju\Downloads\Edit downloads\Flag_of_India.svg.jpg"
+    encryption_key = 350
+
+    encrypt_image(input_image, encryption_key)
